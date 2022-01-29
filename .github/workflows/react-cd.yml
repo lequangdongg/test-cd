@@ -11,12 +11,16 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Install dependencies
+      - name: Test Docker images
       run: |
-        apt update && apt install -y git wget
-        url="$(wget -qO- https://api.github.com/repos/github/hub/releases/latest | tr '"' '\n' | grep '.*/download/.*/hub-linux-amd64-.*.tgz')"
-        wget -qO- "$url" | tar -xzvf- -C /usr/bin --strip-components=2 --wildcards "*/bin/hub"
-
+        # Enable experimental features of Docker Daemon to run multi-arch
+        # images.
+        echo "$(cat /etc/docker/daemon.json)" '{"experimental": true}' \
+        | jq --slurp 'reduce .[] as $item ({}; . * $item)' \
+        | sudo tee /etc/docker/daemon.json
+        sudo systemctl restart docker
+        make npm.install
+        make test.docker platforms=@all build=yes
       - name: Checkout
         uses: actions/checkout@v2
 
