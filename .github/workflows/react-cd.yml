@@ -45,7 +45,7 @@ jobs:
           push: true
           tags: react-cd:latest
           cache-from: type=local,src=/tmp/.buildx-cache
-          cache-to: type:local,dest=/tmp/.buildxcache
+          cache-to: type=local,dest=/tmp/.buildxcache
 
       - name: Verify
         run: echo ${{ steps.docker_build.outputs.digest }}
