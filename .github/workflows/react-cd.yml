@@ -24,7 +24,7 @@ jobs:
         uses: docker/setup-buildx-action@v1
         id: buildx
 
-      - name: Build and push docker image to dockerhub
+      - name: Build and push
         uses: docker/build-push-action@v2
         id: docker_build
         with:
@@ -32,9 +32,7 @@ jobs:
           file: ./Dockerfile
           builder: ${{ steps.buildx.outputs.name }}
           push: true
+          repository: lequangdongg/react-cd
           tags: ${{ secrets.DOCKER_HUB_USER_NAME }}/react-cd:latest
           cache-from: type=registry,ref=${{ secrets.DOCKER_HUB_USER_NAME }}/simplewhale:buildcache
           cache-to: type=registry,ref=${{ secrets.DOCKER_HUB_USER_NAME }}/simplewhale:buildcache,mode=max
-
-      - name: Verify
-        run: echo ${{ steps.docker_build.outputs.digest }}
