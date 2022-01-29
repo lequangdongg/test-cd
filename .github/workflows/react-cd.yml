@@ -37,7 +37,7 @@ jobs:
           file: ./Dockerfile
           builder: ${{ steps.buildx.outputs.name }}
           push: true
-          tags: ${{ secrets.DOCKER_HUB_USER_NAME }}/react-cd
+          tags: react-cd
 
       - name: Verify
         run: echo ${{ steps.docker_build.outputs.digest }}
