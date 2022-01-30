@@ -31,7 +31,8 @@ jobs:
           password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
           context: ./
           file: ./Dockerfile
+          builder: ${{ steps.buildx.outputs.name }}
           push: true
-          tags: ${{ secrets.DOCKER_HUB_USER_NAME }}/react-ci-new
-          cache-from: type=registry,ref=${{ secrets.DOCKER_HUB_USER_NAME }}:buildcache
-          cache-to: type=registry,ref=${{ secrets.DOCKER_HUB_USER_NAME }}:buildcache,mode=max
+          tags: ${{ secrets.DOCKER_HUB_USER_NAME }}/simplewhale:latest
+          cache-from: type=registry,ref=${{ secrets.DOCKER_HUB_USER_NAME }}/simplewhale:buildcache
+          cache-to: type=registry,ref=${{ secrets.DOCKER_HUB_USER_NAME }}/simplewhale:buildcache,mode=max
