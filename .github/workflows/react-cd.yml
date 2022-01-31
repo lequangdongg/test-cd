@@ -1,13 +1,15 @@
 
-name: React CI
+name: Published Docker hub
 
 on:
   push:
     branches: [ master ]
 
 jobs:
-  docker:
-
+  production:
+    environment: Production
+    name: Deploy Production
+    if: ${{ github.ref == 'refs/heads/master' }}
     runs-on: ubuntu-latest
 
     steps:
