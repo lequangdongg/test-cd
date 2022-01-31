@@ -4,7 +4,7 @@ WORKDIR /app
 
 COPY package*.json ./
 
-# RUN yarn cache clean && yarn --update-checksums
+RUN yarn cache clean && yarn --update-checksums
 
 COPY . ./
 
