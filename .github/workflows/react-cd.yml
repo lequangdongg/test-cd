@@ -35,6 +35,9 @@ jobs:
           file: ./Dockerfile
           builder: ${{ steps.buildx.outputs.name }}
           push: true
+          if: ${{ github.ref == 'refs/heads/master' }}
           tags: ${{ secrets.DOCKER_HUB_USER_NAME }}/prod:latest
+          if: ${{ github.ref == 'refs/heads/dev' }}
+          tags: ${{ secrets.DOCKER_HUB_USER_NAME }}/dev:latest
           cache-from: type=registry,ref=${{ secrets.DOCKER_HUB_USER_NAME }}/simplewhale:buildcache
           cache-to: type=registry,ref=${{ secrets.DOCKER_HUB_USER_NAME }}/simplewhale:buildcache,mode=max
