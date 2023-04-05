@@ -15,7 +15,7 @@ function App() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Learn React PR3222
+          Learn React PR3
         </a>
       </header>
     </div>
